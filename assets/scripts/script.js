@@ -17,7 +17,7 @@ function startGame() {
 function initializeCards(cards) {
 
     let gameBoard = document.getElementById("gameBoard");
-
+    gameBoard.innerHTML = '';
     game.cards.forEach(card => {
 
         let cardElement = document.createElement('div');
@@ -62,5 +62,47 @@ function createCardFace(face, card, element){
 
 
 function flipCard() {
-    this.classList.add(FLIP);
+
+    if(game.setCard(this.id)) {
+
+        this.classList.add(FLIP);
+
+        if(game.secondCard) {
+
+            if(game.checkMatch()){
+                game.clearCards();
+                if(game.checkGameOver()){
+                    let gameOverLayer = document.getElementById("gameOver");
+                    gameOverLayer.style.display = 'flex';
+                }
+
+            } else {
+
+                setTimeout(() => {
+                    let firstCardView = document.getElementById(game.firstCard.id);
+                    let secondCardView = document.getElementById(game.secondCard.id);
+
+                    firstCardView.classList.remove(FLIP);
+                    secondCardView.classList.remove(FLIP);
+
+                    game.unflipCards();
+                }, 1000)
+            }
+            game.count++;
+            let h2 = document.getElementById("h2");
+            h2.innerHTML = `Tentativas: ${game.count}`;
+        }
+    }
+}
+
+function restart() {
+    game.clearCards();
+    
+    game.count = 0;
+    let h2 = document.getElementById("h2");
+    h2.innerHTML = `Tentativas: ${game.count}`;
+
+    startGame();
+    let gameOverLayer = document.getElementById("gameOver");
+    gameOverLayer.style.display = 'none';
 }

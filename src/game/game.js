@@ -20,7 +20,7 @@ let game = {
     count: 0,
 
     setCard: function (id) {
-        let card = this.cards.filter(card => card.id == id)[0];
+        let card = this.cards.filter(card => card.id === id)[0];
         console.log(card);
         if (card.flipped || this.lockMode) {
             return false;
@@ -60,7 +60,7 @@ let game = {
 
     checkGameOver() {
 
-        return this.cards.filter(card => !card.flipped).length == 0;
+        return this.cards.filter(card => !card.flipped).length === 0;
     },
 
 
@@ -110,6 +110,33 @@ let game = {
             [this.cards[randomIndex], this.cards[currentIndex]] = [this.cards[currentIndex], this.cards[randomIndex]];
         }
 
+    },
+
+    flipCard: function(cardId, gameOverCallback, noMatchCallback){
+        if(this.setCard(cardId)) {
+    
+            if(this.secondCard) {
+    
+                if(this.checkMatch()){
+                    this.clearCards();
+                    if(this.checkGameOver()){
+                        //GameOver
+                        gameOverCallback();
+                    }
+    
+                } else {
+    
+                    setTimeout(() => {
+                        //No Match
+                        this.unflipCards();
+                        noMatchCallback();
+                    }, 1000)
+                }
+            }
+        }
     }
 
 }
+
+
+export default game;

@@ -3,6 +3,9 @@
 Desenvolvendo jogo da memória proposto pelo curso do ProgramadorBR, utilizando ReactJs.
 <p>Os pares do jogo são os símbolos de algumas tecnologias de desenvolvimento (HTML,CSS,Javascript,Bootstrap,React...).</p>
 
+* Deploy na Netlify:
+https://sorrentinomemoria.netlify.app
+
 ## Execução do projeto:
 
 Para rodar o projeto, primeiro é necessário clonar o repositório e abrir em uma IDE, VSCode por exemplo.
